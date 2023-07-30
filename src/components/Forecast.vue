@@ -1,19 +1,37 @@
 <template>
-    <div>
+    <div class="main-area">
         <router-link v-bind:to="{ name: 'home' }">
             <button class="top-button">HOME</button>
         </router-link>
         <div class="top-wrapper">
             <div class="loop-class" v-for="day in this.$store.state.forecast" :key="day.id">
-                <div class="day-card" :class="setImageByKey(day.imageKey)">
-                    <h3 class="day-name">{{ day.name }}</h3>
-                    <p class="weather-text">{{ day.temperature }}&deg;F</p>
-                    <p class="weather-text">Chance of rain: {{ day.probabilityOfPrecipitation }}%</p>
-                    <p class="weather-text">Wind Speed {{ day.windSpeed }}</p>
-                    <p class="weather-text">Wind Direction {{ day.windDirection }}</p>
-                    <p class="weather-text">Relative Humidity {{ day.relativeHumidity }}%</p>
-                    <p class="weather-text">Dew Point {{ day.dewPoint }}&deg;F</p>
-                    <p class="weather-text">{{ day.shortForecast }}</p>
+                <div class="day-card">
+                    <div class="text-arranger">
+                        <div class="weather-icon-container">
+                            <img :src="setIconByKey(day.imageKey)" class="weather-icon">
+                        </div>
+                        <div class="text-block" id="day-name-adjuster">
+                            <h3 class="day-name">{{ day.name }}</h3>
+                            <h4 class="weather-text">{{ day.temperature }}&deg;F</h4>
+                        </div>
+                        <div class="text-block">
+                            <div class="icon-arranger">
+                                <img src="@/assets/umbrella-with-rain-drops.png" class="weather-icon-small">
+                                <p class="weather-text"> {{ day.probabilityOfPrecipitation }}%</p>
+                            </div>
+                            <div class="icon-arranger">
+                                <img src="@/assets/wind.png" class="weather-icon-small">
+                                <p class="weather-text"> {{ day.windSpeed }}</p>
+                            </div>
+                        </div>
+                        <div class="text-block">
+                            <p class="weather-text">Relative Humidity {{ day.relativeHumidity }}%</p>
+                            <p class="weather-text">Dew Point {{ day.dewPoint }}&deg;F</p>
+                        </div>
+                        <div class="text-block">
+                            <p class="weather-text">{{ day.shortForecast }}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -38,17 +56,17 @@ export default {
             })
         },
 
-        setImageByKey(imageKey) {
+        setIconByKey(imageKey) {
             if (imageKey == "sunny") {
-                return "sunny-card";
-            } else if (imageKey == "cloudy"){
-                return "cloudy-card";
-            } else if (imageKey == "lightning"){
-                return "thunder-card";
-            } else if (imageKey == "rain"){
-                return "rain-card";
+                return require('../assets/sun.png');
+            } else if (imageKey == "cloudy") {
+                return require('../assets/cloud.png');
+            } else if (imageKey == "lightning") {
+                return require('../assets/cloud-with-lightning.png');
+            } else if (imageKey == "rain") {
+                return require('../assets/cloud-with-rain.png');
             }
-            return "thunder-card";
+            return require('../assets/full-moon.png');
         },
     },
     computed: {
@@ -63,13 +81,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.main-area {
+    background-color: rgb(30, 24, 70);
+    color: aliceblue;
+}
+
 .day-card {
     display: flex;
     flex-direction: column;
-    border: black solid 3px;
-
-
+    border: rgba(0, 0, 0, 0.178) solid 2px;
+    background-color: rgb(30, 24, 70);
 }
 
 .top-wrapper {
@@ -92,32 +114,39 @@ export default {
     margin: 5px;
 }
 
-.cloudy-card {
-    background-image: url("../assets/partly-cloudy-crop.jpeg");
-    background-size: cover;
-}
-
-.thunder-card {
-    background-image: url("../assets/lightning-crop.jpeg");
-    background-size: cover;
-}
-
-.rain-card {
-    background-image: url("../assets/rain-crop.jpeg");
-    background-size: cover; 
-}
-
-.sunny-card {
-    background-image: url("../assets/sunshine-crop.jpeg");
-    background-size: cover;
-}
-
-.default-card{
-    background-image: url("../assets/morning-sunshine-crop.jpeg");
-    background-size: cover;
-}
-
 .top-button {
     margin-bottom: 5px;
 }
+
+.text-arranger {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+
+}
+
+.text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 20vw;
+}
+
+.weather-icon {
+    height: 3rem;
+    width: 3rem;
+}
+
+.weather-icon-small {
+    height: 1rem;
+    width: 1rem;
+}
+
+.icon-arranger{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+
 </style>

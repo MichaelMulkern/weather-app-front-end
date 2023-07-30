@@ -2,7 +2,7 @@
     <div>
 <h1>Welcome to my weather app!</h1>
 
-<router-link class="top-links" v-bind:to="{ name: 'forecast-list' }">
+<router-link class="top-links" v-bind:to="{ name: 'forecast-view' }">
     <button>GET FORECAST FOR CURRENT LOCATION</button>
 </router-link>
     </div>
