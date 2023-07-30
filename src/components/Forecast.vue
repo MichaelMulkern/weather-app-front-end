@@ -1,11 +1,11 @@
 <template>
     <div>
-        <router-link  v-bind:to="{ name: 'home' }">
-    <button class="top-button">HOME</button>
-</router-link>
+        <router-link v-bind:to="{ name: 'home' }">
+            <button class="top-button">HOME</button>
+        </router-link>
         <div class="top-wrapper">
             <div class="loop-class" v-for="day in this.$store.state.forecast" :key="day.id">
-                <div class="day-card">
+                <div class="day-card" :class="setImageByKey(day.imageKey)">
                     <h3 class="day-name">{{ day.name }}</h3>
                     <p class="weather-text">{{ day.temperature }}&deg;F</p>
                     <p class="weather-text">Chance of rain: {{ day.probabilityOfPrecipitation }}%</p>
@@ -28,6 +28,7 @@ export default {
     data() {
         return {
             forecastList: [],
+            imageKey: "",
         };
     },
     methods: {
@@ -35,7 +36,23 @@ export default {
             forecastService.getForecast().then((response) => {
                 this.$store.commit("GET_FORECAST", response.data);
             })
-        }
+        },
+
+        setImageByKey(imageKey) {
+            if (imageKey == "sunny") {
+                return "sunny-card";
+            } else if (imageKey == "cloudy"){
+                return "cloudy-card";
+            } else if (imageKey == "lightning"){
+                return "thunder-card";
+            } else if (imageKey == "rain"){
+                return "rain-card";
+            }
+            return "thunder-card";
+        },
+    },
+    computed: {
+
     },
 
     created() {
@@ -51,8 +68,7 @@ export default {
     display: flex;
     flex-direction: column;
     border: black solid 3px;
-    background-image: url("../assets/lightning-crop.jpeg");
-    background-size: cover;
+
 
 }
 
@@ -74,6 +90,31 @@ export default {
 .day-name {
     padding: 0px;
     margin: 5px;
+}
+
+.cloudy-card {
+    background-image: url("../assets/partly-cloudy-crop.jpeg");
+    background-size: cover;
+}
+
+.thunder-card {
+    background-image: url("../assets/lightning-crop.jpeg");
+    background-size: cover;
+}
+
+.rain-card {
+    background-image: url("../assets/rain-crop.jpeg");
+    background-size: cover; 
+}
+
+.sunny-card {
+    background-image: url("../assets/sunshine-crop.jpeg");
+    background-size: cover;
+}
+
+.default-card{
+    background-image: url("../assets/morning-sunshine-crop.jpeg");
+    background-size: cover;
 }
 
 .top-button {
