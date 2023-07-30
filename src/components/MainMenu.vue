@@ -1,14 +1,35 @@
 <template>
-    <div>
-<h1>Welcome to my weather app!</h1>
+  <div>
+    <h1>Welcome to my weather app!</h1>
 
-<router-link class="top-links" v-bind:to="{ name: 'forecast-view' }">
-    <button>GET FORECAST FOR CURRENT LOCATION</button>
-</router-link>
-    </div>
+    <router-link class="top-links" v-bind:to="{ name: 'forecast-view' }">
+      <button>7 DAY FORECAST</button>
+    </router-link>
+  </div>
 </template>
 
 <script>
+//import { ref } from 'vue'
+export default {
+  name: "poop-list",
+  data() {
+    return {
+      test: "",
+    };
+  },
+  methods: {
+
+
+  },
+  setup() {
+      navigator.geolocation.getCurrentPosition((position) => {
+        let lat = position.coords.latitude;
+        let long = position.coords.longitude;
+        console.log("Latitude " + lat + "Longitude " + long);
+      }
+      )
+    },
+}
 </script>
 
 <style>
@@ -19,7 +40,7 @@ button {
   color: #fff;
   cursor: pointer;
   display: inline-block;
-  font-family: system-ui,-apple-system,system-ui,"Segoe UI",Roboto,Ubuntu,"Helvetica Neue",sans-serif;
+  font-family: system-ui, -apple-system, system-ui, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
   font-size: 18px;
   font-weight: 600;
   outline: 0;
