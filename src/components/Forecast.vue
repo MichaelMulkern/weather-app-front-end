@@ -14,7 +14,7 @@
                             <h3 class="day-name">{{ day.name }}</h3>
                             <h4 class="weather-text">{{ day.temperature }}&deg;F</h4>
                         </div>
-                        <div class="text-block">
+                        <div class="text-block text-shortener">
                             <div class="icon-arranger">
                                 <img src="@/assets/umbrella-with-rain-drops.png" class="weather-icon-small">
                                 <p class="weather-text"> {{ day.probabilityOfPrecipitation }}%</p>
@@ -24,11 +24,11 @@
                                 <p class="weather-text"> {{ day.windSpeed }}</p>
                             </div>
                         </div>
-                        <div class="text-block">
+                        <div class="text-block desktop-only">
                             <p class="weather-text">Relative Humidity {{ day.relativeHumidity }}%</p>
                             <p class="weather-text">Dew Point {{ day.dewPoint }}&deg;F</p>
                         </div>
-                        <div class="text-block">
+                        <div class="text-block desktop-only">
                             <p class="weather-text">{{ day.shortForecast }}</p>
                         </div>
                     </div>
@@ -148,5 +148,42 @@ export default {
     align-items: center;
 }
 
+@media only screen and (max-width: 600px) {
+ .desktop-only{
+    display: none;
+    width: 0px;
+    height: 0px;
+   
+ }
+ .text-block {
+font-size: small;
+    width: 50vw;
+
+ }
+ .weather-icon {
+    display: flex;
+    align-content: center;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+button {
+  border: 0;
+  border-radius: 56px;
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 600;
+  outline: 0;
+  padding: 9px 9px;
+
+}
+}
+
+@media only screen and (min-width: 600px){
+.text-shortener {
+
+    width: 100px;
+}
+}
 
 </style>
