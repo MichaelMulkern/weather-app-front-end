@@ -5,10 +5,12 @@
     <router-link class="top-links" v-bind:to="{ name: 'forecast-view' }">
       <button>7 DAY FORECAST</button>
     </router-link>
+    <button @click="testMethod()">POOPNUGZ</button>
   </div>
 </template>
 
 <script>
+import forecastService from '@/services/ForecastService.vue';
 //import { ref } from 'vue'
 export default {
   name: "poop-list",
@@ -18,10 +20,24 @@ export default {
     };
   },
   methods: {
+    testMethod(){
+      let lat = "40.360278";
+      let lon = "-81.057778";
+     // let bodyObject = {"lat": "40.360278", "lon": "-81.057778"};
+      this.getLocation(lat, lon);
+      
 
+    },
+    getLocation(lat, lon) {
+      
+            forecastService.getLocationData(lat, lon).then((response) => {
+                this.$store.commit("GET_LOCATION", response.data);
+                console.log(this.$store.state.locationData);
+            })
+        },
 
   },
-  setup() {
+  created() {
       navigator.geolocation.getCurrentPosition((position) => {
         let lat = position.coords.latitude;
         let long = position.coords.longitude;

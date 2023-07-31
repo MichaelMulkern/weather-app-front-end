@@ -8,6 +8,10 @@ const http = axios.create({
 export default {
     getForecast(){
         return http.get('/forecast');
+    },
+
+    getLocationData(lat, lon) {
+        return http.get(`/location/${lat}/${lon}`)
     }
 
 }
