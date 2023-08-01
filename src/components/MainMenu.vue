@@ -5,7 +5,6 @@
     <router-link class="top-links" v-bind:to="{ name: 'forecast-view' }">
       <button>7 DAY FORECAST</button>
     </router-link>
-    <button @click="testMethod()">POOPNUGZ</button>
   </div>
 </template>
 
@@ -13,38 +12,51 @@
 import forecastService from '@/services/ForecastService.vue';
 //import { ref } from 'vue'
 export default {
-  name: "poop-list",
+  name: "main-menu",
   data() {
     return {
       test: "",
+      latitude: "",
+      longitude: "",
     };
   },
   methods: {
-    testMethod(){
-      let lat = "40.360278";
-      let lon = "-81.057778";
-     // let bodyObject = {"lat": "40.360278", "lon": "-81.057778"};
-      this.getLocation(lat, lon);
-      
-
-    },
     getLocation(lat, lon) {
-      
-            forecastService.getLocationData(lat, lon).then((response) => {
-                this.$store.commit("GET_LOCATION", response.data);
-                console.log(this.$store.state.locationData);
+      forecastService.getLocationData(lat, lon).then((response) => {
+        this.$store.commit("GET_LOCATION", response.data);
+        console.log(this.$store.state.locationData);
+      })
+    },
+   // getPosition() {
+   //   navigator.geolocation.getCurrentPosition((position) => {
+   //     this.latitude = position.coords.latitude;
+   //     this.longitude = position.coords.longitude;
+   //   }
+   //   )
+   // },
+    getCoordinates() {
+      return new Promise(function (resolve, reject) {
+        navigator.geolocation.getCurrentPosition(resolve, reject);
+      });
+    },
+    async timerFunction(){
+      const position = await this.getCoordinates(); 
+      let latitude = position.coords.latitude;
+      let longitude = position.coords.longitude;
+      return this.getLocation(latitude, longitude)
+    },
+  },
+  getForecast() {
+            forecastService.getForecast().then((response) => {
+                this.$store.commit("GET_FORECAST", response.data);
             })
         },
 
+  mounted() {
+    this.timerFunction()
   },
-  created() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        let lat = position.coords.latitude;
-        let long = position.coords.longitude;
-        console.log("Latitude " + lat + "Longitude " + long);
-      }
-      )
-    },
+
+
 }
 </script>
 
