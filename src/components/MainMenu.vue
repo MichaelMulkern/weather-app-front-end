@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="menu-area">
     <h1>Welcome to my weather app!</h1>
-
+    <h3>{{ this.$store.state.locationData.city }} {{ this.$store.state.locationData.state }}</h3>
     <router-link class="top-links" v-bind:to="{ name: 'forecast-view' }">
       <button>7 DAY FORECAST</button>
     </router-link>
@@ -22,9 +22,8 @@ export default {
   },
   methods: {
     getLocation(lat, lon) {
-      forecastService.getLocationData(lat, lon).then((response) => {
+      return forecastService.getLocationData(lat, lon).then((response) => {
         this.$store.commit("GET_LOCATION", response.data);
-        console.log(this.$store.state.locationData);
       })
     },
    // getPosition() {
@@ -45,15 +44,17 @@ export default {
       let longitude = position.coords.longitude;
       return this.getLocation(latitude, longitude)
     },
-  },
-  getForecast() {
-            forecastService.getForecast().then((response) => {
-                this.$store.commit("GET_FORECAST", response.data);
+    async getForecast() {
+    await this.timerFunction();
+       return forecastService.getForecast().then((response) => {
+          this.$store.commit("GET_FORECAST", response.data);
             })
         },
+  },
+
 
   mounted() {
-    this.timerFunction()
+    this.getForecast();
   },
 
 
@@ -108,5 +109,14 @@ button:hover {
   -webkit-transform: scale(1.05);
   -ms-transform: scale(1.05);
   transform: scale(1.05);
+}
+
+html {
+    background-color: rgb(30, 24, 70);
+    
+}
+
+.menu-area {
+  color: aliceblue;
 }
 </style>

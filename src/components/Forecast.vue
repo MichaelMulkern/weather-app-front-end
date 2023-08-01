@@ -39,7 +39,6 @@
 </template>
 
 <script>
-import forecastService from '@/services/ForecastService.vue';
 
 export default {
     name: "forecast-list",
@@ -50,12 +49,6 @@ export default {
         };
     },
     methods: {
-        getForecast() {
-            forecastService.getForecast().then((response) => {
-                this.$store.commit("GET_FORECAST", response.data);
-            })
-        },
-
         setIconByKey(imageKey) {
             if (imageKey == "sunny") {
                 return require('../assets/sun.png');
@@ -74,8 +67,7 @@ export default {
     },
 
     created() {
-        this.getForecast();
-        this.forecastList = this.$store.state.forecast;
+
     }
 
 }
