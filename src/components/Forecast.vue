@@ -1,8 +1,5 @@
 <template>
     <div class="main-area">
-        <router-link v-bind:to="{ name: 'home' }">
-            <button class="top-button">HOME</button>
-        </router-link>
         <div class="top-wrapper">
             <div class="loop-class" v-for="day in this.$store.state.forecast" :key="day.id">
                 <div class="day-card">

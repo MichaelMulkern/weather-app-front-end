@@ -4,6 +4,7 @@ export default createStore({
   state: {
     forecast: [],
     locationData: {},
+    hourly: [],
   },
   getters: {
   },
@@ -13,7 +14,10 @@ export default createStore({
     },
     GET_LOCATION(state, data) {
       state.locationData = data;
-    }
+    },
+    GET_HOURLY(state, data) {
+      state.hourly = data;
+    },
   },
   actions: {
   },

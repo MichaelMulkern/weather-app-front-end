@@ -12,7 +12,11 @@ export default {
 
     getLocationData(lat, lon) {
         return http.get(`/location/${lat}/${lon}`)
-    }
+    },
+
+    getHourly(){
+        return http.get('/hourly');
+    },
 
 }
 </script>
