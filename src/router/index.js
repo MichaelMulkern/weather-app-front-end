@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import forecastView from '@/views/ForecastView.vue'
+
 
 const routes = [
   {
@@ -8,11 +8,7 @@ const routes = [
     name: 'home',
     component: HomeView
   },
-  {
-    path: '/forecast',
-    name: 'forecast-view',
-    component: forecastView
-  },
+
 ]
 
 const router = createRouter({

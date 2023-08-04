@@ -2,7 +2,7 @@
     <div class="main-area">
         <div class="top-wrapper">
             <div class="loop-class" v-for="day in this.$store.state.forecast" :key="day.id">
-                <div class="day-card">
+                <div class="day-card" @click="this.forecastToggle()">
                     <div class="text-arranger">
                         <div class="weather-icon-container">
                             <img :src="setIconByKey(day.imageKey)" class="weather-icon">
@@ -30,6 +30,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="long-forecast"  @click="this.forecastToggle()" v-show="clickRegister">
+                    <p class="long-text">{{ day.longForecast }}</p>
+                </div>
             </div>
         </div>
     </div>
@@ -43,6 +46,7 @@ export default {
         return {
             forecastList: [],
             imageKey: "",
+            clickRegister: false,
         };
     },
     methods: {
@@ -58,6 +62,13 @@ export default {
             }
             return require('../assets/full-moon.png');
         },
+        forecastToggle(){
+            if(this.clickRegister == false){
+                this.clickRegister = true;
+            }else{
+                this.clickRegister = false;
+            }
+        }
     },
     computed: {
 
@@ -71,16 +82,18 @@ export default {
 </script>
 
 <style scoped>
+
 .main-area {
     background-color: rgb(30, 24, 70);
     color: aliceblue;
+    
 }
 
 .day-card {
     display: flex;
     flex-direction: column;
-    border: rgba(0, 0, 0, 0.178) solid 2px;
-    background-color: rgb(30, 24, 70);
+    border-bottom: rgba(0, 0, 0, 0.13) solid 2px;
+
 }
 
 .top-wrapper {
@@ -91,6 +104,7 @@ export default {
 
 .loop-class {
     width: 100vw;
+    
 }
 
 .weather-text {
@@ -137,12 +151,19 @@ export default {
     align-items: center;
 }
 
+.long-text {
+    background-color: rgba(0, 0, 0, 0.322);
+}
+
 @media only screen and (max-width: 600px) {
  .desktop-only{
     display: none;
     width: 0px;
     height: 0px;
    
+ }
+ .long-text {
+    font-size: smaller;
  }
  .text-block {
 font-size: small;

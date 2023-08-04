@@ -1,12 +1,18 @@
 <template>
   <div class="home">
+    <div >
+      <img class="noaa-logo" src='../assets/noaaLogo.png' >
+    </div>
     <h1>NOAA WEATHER</h1>
     <h3>for</h3>
-    <h3>{{ this.$store.state.locationData.city }} {{ this.$store.state.locationData.state }}</h3>
+    <h3 class="location-title">{{ this.$store.state.locationData.city }} {{ this.$store.state.locationData.state }}</h3>
     <div class="forecast-main">
       <hourly />
       <forecast />
     </div>
+    <footer>
+    <p class="bottom-logo">&copy; Michael Mulkern</p>
+  </footer>
   </div>
 </template>
 
@@ -68,5 +74,25 @@ export default {
 * {
   color: aliceblue;
   background-color: rgb(30, 24, 70);
+}
+
+.location-title {
+  border-bottom: 1px black solid;
+  padding-bottom: 8px;
+}
+.noaa-logo {
+  width: 10%;
+  height: 10%;
+}
+
+.bottom-logo {
+  font-size: smaller;
+}
+
+@media only screen and (max-width: 600px) {
+  .noaa-logo {
+  width: 25%;
+  height: 25%;
+}
 }
 </style>
