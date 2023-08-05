@@ -11,6 +11,7 @@
       <forecast />
     </div>
     <footer>
+    <p class="bottom-logo">Data provided by NOAA</p>
     <p class="bottom-logo">&copy; Michael Mulkern</p>
   </footer>
   </div>

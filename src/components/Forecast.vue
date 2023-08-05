@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="long-forecast"  @click="this.forecastToggle()" v-show="clickRegister">
+                <div class="long-forecast" @click="this.forecastToggle()" v-show="clickRegister">
                     <p class="long-text">{{ day.longForecast }}</p>
                 </div>
             </div>
@@ -59,13 +59,17 @@ export default {
                 return require('../assets/cloud-with-lightning.png');
             } else if (imageKey == "rain") {
                 return require('../assets/cloud-with-rain.png');
+            } else if (imageKey == "moon") {
+                return require('../assets/full-moon.png');
+            } else if (imageKey == "partly") {
+                return require('../assets/sun-behind-large-cloud.png');
             }
-            return require('../assets/full-moon.png');
+            return require('../assets/logo.png');
         },
-        forecastToggle(){
-            if(this.clickRegister == false){
+        forecastToggle() {
+            if (this.clickRegister == false) {
                 this.clickRegister = true;
-            }else{
+            } else {
                 this.clickRegister = false;
             }
         }
@@ -82,17 +86,17 @@ export default {
 </script>
 
 <style scoped>
-
 .main-area {
     background-color: rgb(30, 24, 70);
     color: aliceblue;
-    
+
 }
 
 .day-card {
     display: flex;
     flex-direction: column;
     border-bottom: rgba(0, 0, 0, 0.13) solid 2px;
+    
 
 }
 
@@ -104,12 +108,13 @@ export default {
 
 .loop-class {
     width: 100vw;
-    
+   
 }
 
 .weather-text {
     padding: 0px;
     margin: 3px;
+    
 }
 
 .day-name {
@@ -145,7 +150,7 @@ export default {
     width: 1rem;
 }
 
-.icon-arranger{
+.icon-arranger {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -156,44 +161,46 @@ export default {
 }
 
 @media only screen and (max-width: 600px) {
- .desktop-only{
-    display: none;
-    width: 0px;
-    height: 0px;
-   
- }
- .long-text {
-    font-size: smaller;
- }
- .text-block {
-font-size: small;
-    width: 50vw;
+    .desktop-only {
+        display: none;
+        width: 0px;
+        height: 0px;
 
- }
- .weather-icon {
-    display: flex;
-    align-content: center;
-    height: 1.5rem;
-    width: 1.5rem;
+    }
+
+    .long-text {
+        font-size: smaller;
+    }
+
+    .text-block {
+        font-size: small;
+        width: 50vw;
+
+    }
+
+    .weather-icon {
+        display: flex;
+        align-content: center;
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+
+    button {
+        border: 0;
+        border-radius: 56px;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: 600;
+        outline: 0;
+        padding: 9px 9px;
+
+    }
 }
 
-button {
-  border: 0;
-  border-radius: 56px;
-  display: inline-block;
-  font-size: 15px;
-  font-weight: 600;
-  outline: 0;
-  padding: 9px 9px;
+@media only screen and (min-width: 600px) {
+    .text-shortener {
 
+        width: 100px;
+    }
 }
-}
-
-@media only screen and (min-width: 600px){
-.text-shortener {
-
-    width: 100px;
-}
-}
-
 </style>
